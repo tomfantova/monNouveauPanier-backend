@@ -16,7 +16,7 @@ const usersSchema = mongoose.Schema({
   lists: [
     {
       name: String,
-      date: Date,
+      date: String,
       active: Boolean,
       categories: [],
     },
