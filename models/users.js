@@ -15,6 +15,7 @@ const usersSchema = mongoose.Schema({
   },
   lists: [
     {
+      id: Number,
       name: String,
       date: String,
       active: Boolean,
