@@ -30,13 +30,8 @@ router.post('/new', async (req, res) => {
     preferences: {
       type: req.body.preferences.type, // Je rajouterai les autres préférences, pour l'instant on laisse seulement "type"
     },
-    bookmarks: {
-        interviews: [],
-        generalities: [],
-        products: [],
-        labels: [],
-    },
-    lists: []
+    bookmarks: [],
+    lists: [],
   })
 
   const savedUserData = await newUser.save()

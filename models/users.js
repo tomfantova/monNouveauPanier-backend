@@ -1,4 +1,4 @@
-const mongoose = require('mongoose')
+const mongoose = require("mongoose");
 
 const usersSchema = mongoose.Schema({
     firstname: String,
@@ -6,13 +6,12 @@ const usersSchema = mongoose.Schema({
     email: String,
     password: String,
     token: String,
-    preferences: {String},
-    bookmarks: {
-        interviews: [{ type: mongoose.Schema.Types.ObjectId, ref: 'interviews' }],
-        generalities: [{ type: mongoose.Schema.Types.ObjectId, ref: 'general' }],
-        products: [{ type: mongoose.Schema.Types.ObjectId, ref: 'products' }],
-        labels: [{ type: mongoose.Schema.Types.ObjectId, ref: 'labels' }],
+    preferences: {
+        type: Number,
     },
+    bookmarks: [{
+        type: mongoose.Schema.Types.ObjectId, ref: "guides"
+    }],
     lists: [{
         name: String,
         date: Date,
@@ -25,6 +24,6 @@ const usersSchema = mongoose.Schema({
     }]
 })
 
-const User = mongoose.model('users', usersSchema)
+const User = mongoose.model("users", usersSchema);
 
-module.exports = User
+module.exports = User;
