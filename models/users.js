@@ -19,7 +19,10 @@ const usersSchema = mongoose.Schema({
         categories: [{
             name: String,
             image: String,
-            items: [String],
+            items: [{
+                name: String,
+                active: Boolean,
+            }],
         }],
     }]
 })

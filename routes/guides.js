@@ -106,7 +106,7 @@ const createNewGuide = async (content) => {
 const newGuideContent = {
     title: 'Titre',
     date: new Date(),
-    category: 'generalities',
+    category: 'products',
     images: {
         main: 'url'
     },
