@@ -17,7 +17,11 @@ const usersSchema = mongoose.Schema({
         name: String,
         date: Date,
         active: Boolean,
-        categories: {}, 
+        categories: [{
+            name: String,
+            image: String,
+            items: [String],
+        }],
     }]
 })
 
