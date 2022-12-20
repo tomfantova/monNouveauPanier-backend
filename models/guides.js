@@ -4,6 +4,7 @@ const guidesSchema = mongoose.Schema({
     title: String,
     date: Date,
     category: String,
+    tags: [String],
     images: {},
     resume: {
         subtitles: [String],

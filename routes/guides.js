@@ -5,6 +5,24 @@ const Guide = require('../models/guides')
 
 
 
+// GET Tous les guides
+
+router.get('/all', async (req, res) => {
+    const allGuidesData = await Guide.find({})
+    res.json({ result: true, allGuides: allGuidesData })
+})
+
+
+
+// GET Recherche globale
+
+router.get('/search/:tag', async (req, res) => {
+    const foundGuidesData = await Guide.find({ tags: req.params.tag })
+    res.json({ result: true, foundGuides: foundGuidesData })
+})
+
+
+
 // GET Guides généraux
 
 router.get('/generalities', async (req, res) => {
@@ -60,6 +78,7 @@ const createNewGuide = async (content) => {
         typeof content.title !== "string"
         || !(content.date instanceof Date && !isNaN(content.date))
         || !(typeof content.images === "object" && !Array.isArray(content.images) && Object.values(content.images).every(e => typeof e === "string"))
+        || !(Array.isArray(content.tags) && content.tags.every(e => typeof e === "string"))
         || !(Array.isArray(content.resume.subtitles) && content.resume.subtitles.every(e => typeof e === "string"))
         || !(Array.isArray(content.resume.paragraphs) && content.resume.paragraphs.every(e => typeof e === "string") && content.resume.subtitles.length === content.resume.paragraphs.length)
         || !(Array.isArray(content.main.subtitles) && content.main.subtitles.every(e => typeof e === "string"))
@@ -75,6 +94,7 @@ const createNewGuide = async (content) => {
         title: content.title,
         date: content.date,
         category: content.category,
+        tags: content.tags,
         images: content.images,
         resume: {
             subtitles: content.resume.subtitles,
@@ -87,7 +107,7 @@ const createNewGuide = async (content) => {
     })
 
     const savedGuide = await newGuide.save()
-    const response = { result: true, category: category, newGuide: savedGuide }
+    const response = { result: true, newGuide: savedGuide }
     console.log(response)
     return response
 
@@ -106,7 +126,8 @@ const createNewGuide = async (content) => {
 const newGuideContent = {
     title: 'Titre',
     date: new Date(),
-    category: 'products',
+    category: 'generalities',
+    tags: ['tag'],
     images: {
         main: 'url'
     },
