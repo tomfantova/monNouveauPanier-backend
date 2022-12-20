@@ -6,22 +6,16 @@ const usersSchema = mongoose.Schema({
   email: String,
   password: String,
   token: String,
-  preferences: { String },
-  bookmarks: {
-    interviews: [{ type: mongoose.Schema.Types.ObjectId, ref: "interviews" }],
-    generalities: [{ type: mongoose.Schema.Types.ObjectId, ref: "general" }],
-    products: [{ type: mongoose.Schema.Types.ObjectId, ref: "products" }],
-    labels: [{ type: mongoose.Schema.Types.ObjectId, ref: "labels" }],
+  preferences: {
+    type: Number,
   },
-  lists: [
+  bookmarks: [
     {
-      id: Number,
-      name: String,
-      date: String,
-      active: Boolean,
-      categories: [],
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "guides",
     },
   ],
+  lists: [],
 });
 
 const User = mongoose.model("users", usersSchema);
