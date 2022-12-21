@@ -3,12 +3,26 @@ const router = express.Router();
 
 const Guide = require("../models/guides");
 
-// GET ALL, fait par Tom pour test //
+// GET Tous les guides
 
 router.get("/all", async (req, res) => {
-  const allGuides = await Guide.find();
-  res.json({ result: true, allGuides: allGuides });
+  const allGuidesData = await Guide.find({});
+  res.json({ result: true, allGuides: allGuidesData });
 });
+
+// GET Recherche globale
+
+router.get("/search/:tag", async (req, res) => {
+  const foundGuidesData = await Guide.find({ tags: req.params.tag });
+  res.json({ result: true, foundGuides: foundGuidesData });
+});
+
+// // GET ALL, fait par Tom pour test //
+
+// router.get("/all", async (req, res) => {
+//   const allGuides = await Guide.find();
+//   res.json({ result: true, allGuides: allGuides });
+// });
 
 // GET Guides généraux
 
@@ -38,11 +52,16 @@ router.get("/interviews", async (req, res) => {
   res.json({ result: true, allInterviews: allInterviewsData });
 });
 
+// GET Entretiens
+
+router.get("/interviews", async (req, res) => {
+  const allInterviewsData = await Guide.find({ category: "interviews" });
+  res.json({ result: true, allInterviews: allInterviewsData });
+});
+
 // Fonction pour créer un nouveau guide (sans thunder client)
 
 const createNewGuide = async (content) => {
-  // 1. Vérifie la validité de "category"
-
   const validCategories = ["generalities", "products", "labels", "interviews"];
 
   if (!validCategories.includes(content.category)) {
@@ -59,6 +78,10 @@ const createNewGuide = async (content) => {
       typeof content.images === "object" &&
       !Array.isArray(content.images) &&
       Object.values(content.images).every((e) => typeof e === "string")
+    ) ||
+    !(
+      Array.isArray(content.tags) &&
+      content.tags.every((e) => typeof e === "string")
     ) ||
     !(
       Array.isArray(content.resume.subtitles) &&
@@ -89,6 +112,7 @@ const createNewGuide = async (content) => {
     title: content.title,
     date: content.date,
     category: content.category,
+    tags: content.tags,
     images: content.images,
     resume: {
       subtitles: content.resume.subtitles,
@@ -101,10 +125,30 @@ const createNewGuide = async (content) => {
   });
 
   const savedGuide = await newGuide.save();
-  const response = { result: true, category: category, newGuide: savedGuide };
+  const response = { result: true, newGuide: savedGuide };
   console.log(response);
   return response;
 };
+
+const newGuide = new Guide({
+  title: content.title,
+  date: content.date,
+  category: content.category,
+  images: content.images,
+  resume: {
+    subtitles: content.resume.subtitles,
+    paragraphs: content.resume.paragraphs,
+  },
+  main: {
+    subtitles: content.main.subtitles,
+    paragraphs: content.main.paragraphs,
+  },
+});
+
+const savedGuide = await newGuide.save();
+const response = { result: true, category: category, newGuide: savedGuide };
+console.log(response);
+return response;
 
 // Création d'un nouveau guide (manuel, pas de Thunder Client) :
 
@@ -117,7 +161,8 @@ const createNewGuide = async (content) => {
 const newGuideContent = {
   title: "Titre",
   date: new Date(),
-  category: "products",
+  category: "generalities",
+  tags: ["tag"],
   images: {
     main: "url",
   },
