@@ -130,25 +130,25 @@ const createNewGuide = async (content) => {
   return response;
 };
 
-const newGuide = new Guide({
-  title: content.title,
-  date: content.date,
-  category: content.category,
-  images: content.images,
-  resume: {
-    subtitles: content.resume.subtitles,
-    paragraphs: content.resume.paragraphs,
-  },
-  main: {
-    subtitles: content.main.subtitles,
-    paragraphs: content.main.paragraphs,
-  },
-});
+// const newGuide = new Guide({
+//   title: content.title,
+//   date: content.date,
+//   category: content.category,
+//   images: content.images,
+//   resume: {
+//     subtitles: content.resume.subtitles,
+//     paragraphs: content.resume.paragraphs,
+//   },
+//   main: {
+//     subtitles: content.main.subtitles,
+//     paragraphs: content.main.paragraphs,
+//   },
+// });
 
-const savedGuide = await newGuide.save();
-const response = { result: true, category: category, newGuide: savedGuide };
-console.log(response);
-return response;
+// const savedGuide = await newGuide.save();
+// const response = { result: true, category: category, newGuide: savedGuide };
+// console.log(response);
+// return response;
 
 // Création d'un nouveau guide (manuel, pas de Thunder Client) :
 
