@@ -17,13 +17,6 @@ router.get("/search/:tag", async (req, res) => {
   res.json({ result: true, foundGuides: foundGuidesData });
 });
 
-// // GET ALL, fait par Tom pour test //
-
-// router.get("/all", async (req, res) => {
-//   const allGuides = await Guide.find();
-//   res.json({ result: true, allGuides: allGuides });
-// });
-
 // GET Guides généraux
 
 router.get("/generalities", async (req, res) => {
@@ -43,13 +36,6 @@ router.get("/products", async (req, res) => {
 router.get("/labels", async (req, res) => {
   const allLabelsData = await Guide.find({ category: "labels" });
   res.json({ result: true, allLabels: allLabelsData });
-});
-
-// GET Entretiens
-
-router.get("/interviews", async (req, res) => {
-  const allInterviewsData = await Guide.find({ category: "interviews" });
-  res.json({ result: true, allInterviews: allInterviewsData });
 });
 
 // GET Entretiens
