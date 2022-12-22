@@ -36,7 +36,7 @@ const usersSchema = mongoose.Schema({
   date: Date,
   preferences: preferencesSchema,
   bookmarks: [{ type: mongoose.Schema.Types.ObjectId, ref: "guides" }],
-  lists: [listSchema]
+  lists: []
 });
 
 const User = mongoose.model("users", usersSchema);
