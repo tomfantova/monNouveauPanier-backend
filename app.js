@@ -10,6 +10,7 @@ const indexRouter = require("./routes/index");
 const usersRouter = require("./routes/users");
 const guidesRouter = require("./routes/guides");
 const listsRouter = require("./routes/lists");
+const bookmarksRouter = require("./routes/bookmarks");
 
 const app = express();
 
@@ -26,5 +27,6 @@ app.use("/", indexRouter);
 app.use("/users", usersRouter);
 app.use("/guides", guidesRouter);
 app.use("/lists", listsRouter);
+app.use("/bookmarks", bookmarksRouter);
 
 module.exports = app;

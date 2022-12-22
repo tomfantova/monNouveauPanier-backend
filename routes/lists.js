@@ -43,7 +43,7 @@ router.put("/restart", async (req, res) => {
   res.json({ result: true });
 });
 
-// DELETE Supprimer une liste //
+// PUT Supprimer une liste //
 
 router.put("/delete", async (req, res) => {
   await User.updateOne(
